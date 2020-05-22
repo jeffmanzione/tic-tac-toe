@@ -7,7 +7,7 @@ import { initSoy } from './util.mjs';
 initSoy();
 
 new Server({
-  hostname: '192.168.1.81',
+  hostname: 'hostname',
   applications: {
     8080: new Application(
       {
