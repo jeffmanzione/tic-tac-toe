@@ -7,9 +7,6 @@ import { State } from '../../state.mjs';
 export default class HomeShard extends Shard {
   constructor() {
     super();
-    soynode.compileTemplateFiles(['./tic-tac-toe/shards/home/home.soy'], (err) => {
-      if (err) throw err; console.log('Home templates compiled!');
-    });
   }
   /**
    * @param {!IncomingMessage} req 

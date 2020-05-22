@@ -7,9 +7,6 @@ import { State } from '../../state.mjs';
 export default class LoginShard extends Shard {
   constructor() {
     super();
-    soynode.compileTemplateFiles(['./tic-tac-toe/shards/login/login.soy'], (err) => {
-      if (err) throw err; console.log('Login templates compiled!');
-    });
   }
   /**
    * @param {!IncomingMessage} req 
