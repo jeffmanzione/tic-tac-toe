@@ -1,7 +1,6 @@
 import Application from './application.mjs';
-import { ServerState, State } from './state.mjs';
-
 import { createServer } from 'http';
+import { ServerState, State } from './state.mjs';
 
 export default class Server {
   /**

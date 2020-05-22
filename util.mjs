@@ -1,5 +1,6 @@
 import soynode from 'soynode';
 
+/** Basic soy setup for this project. */
 export function initSoy() {
   soynode.setOptions({
     outputDir: '/tmp/soynode/tictactoe'

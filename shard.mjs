@@ -9,8 +9,8 @@ export default class Shard {
    * @param {!State} state 
    */
   receive(req, res, state) {
-    res.statusCode = 200;
+    res.statusCode = 501;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Base shard: Unimplemented!\n');
+    res.end('Shard not implemented!\n');
   }
 }
