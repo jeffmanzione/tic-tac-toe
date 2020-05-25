@@ -5,9 +5,6 @@ import { IncomingMessage, OutgoingMessage } from 'http';
 import { State } from '../../state.mjs';
 
 export default class HomeShard extends Shard {
-  constructor() {
-    super();
-  }
   /**
    * @param {!IncomingMessage} req 
    * @param {!OutgoingMessage} res 

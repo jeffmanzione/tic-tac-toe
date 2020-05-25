@@ -5,7 +5,8 @@ import { ServerState, State } from './state.mjs';
 export default class Server {
   /**
    * @param {string=} hostname The hostname of the server.
-   * @param {Object<number,Application>=} applications The port/application mapping for this server.
+   * @param {Object<number,Application>=} applications The port/application
+   *   mapping for this server.
    */
   constructor({ hostname = 'localhost', applications = {} }) {
     /** @const @private */
@@ -19,10 +20,14 @@ export default class Server {
 
   /** Starts the server. */
   start() {
+    console.log(`Server starting for ${this._hostname}.`);
     for (const [port, app] of Object.entries(this._applications)) {
       createServer((req, res) => {
         return app.receive(req, res, new State(this._state));
-      }).listen(port, this._hostname);
+      }).listen(port, this._hostname,
+        () => {
+          app.describe(this._hostname, port);
+        });
     }
   }
 }

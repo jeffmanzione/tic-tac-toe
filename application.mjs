@@ -4,13 +4,26 @@ import { IncomingMessage, OutgoingMessage } from 'http';
 
 export default class Application {
   /**
-   * @param {Object<String,Shard>=} shards 
+   * @param {string} shards 
+   * @param {Object<string,Shard>=} shards 
    */
-  constructor(shards = {}) {
+  constructor(name, shards = {}) {
+    /** @const */
+    this.name = name;
     /** @private @const */
     this._shards = shards;
     /** @private @const */
     this._state = new ApplicationState();
+  }
+  /**
+   * @param {string} hostname 
+   * @param {number} port 
+   */
+  describe(hostname, port) {
+    console.log(`Application \'${this.name}\' at ${hostname}:${port}:`);
+    for (const [path, shard] of Object.entries(this._shards)) {
+      console.log(`  ${path}`);
+    }
   }
   /**
    * @param {!IncomingMessage} req 
