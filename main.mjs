@@ -7,13 +7,12 @@ import { initSoy } from './util.mjs';
 initSoy();
 
 new Server({
-  hostname: '192.168.1.81',
-  applications: {
-    8080: new Application(
-      'tic-tac-toe',
-      {
-        '^/$': new HomeShard(),
-        '^/login(/.*)?': new LoginShard(),
-      }),
-  }
+    hostname: 'localhost',
+    applications: {
+        8080: new Application(
+            'tic-tac-toe', {
+                '^/$': new HomeShard(),
+                '^/login(/.*)?': new LoginShard(),
+            }),
+    }
 }).start();
