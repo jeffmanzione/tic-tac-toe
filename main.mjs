@@ -2,6 +2,7 @@ import Application from './application.mjs';
 import Server from './server.mjs';
 import HomeShard from './shards/home/home.mjs';
 import LoginShard from './shards/login/login.mjs';
+import GameShard from './shards/game/game.mjs';
 import { initSoy } from './util.mjs';
 
 initSoy();
@@ -13,6 +14,7 @@ new Server({
             'tic-tac-toe', {
                 '^/$': new HomeShard(),
                 '^/login(/.*)?': new LoginShard(),
+                '^/game': new GameShard()
             }),
     }
 }).start();
