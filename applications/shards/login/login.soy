@@ -1,0 +1,39 @@
+{namespace tictactoe}{template .login}
+  {@param username: string | null}
+  <h1>Login</h1>
+  <table>
+    <tr>
+      <td>Username:</td>
+      <td>
+        {if not isNull($username)}
+          {$username}
+        {else}
+          <input type="text" id="username">
+        {/if}
+      </td>
+    </tr>
+  </table>
+  {if isNull($username)}
+    <button onclick="sendLogin()">Login</button>
+  {else}
+    <button onclick="sendLogout()">Logout</button>
+  {/if}
+  <script type="text/javascript">
+    function sendLogin() {lb}
+      const req = new XMLHttpRequest();
+      req.open('POST', '/login?username=' + document.getElementById('username').value);
+      req.send();
+      req.onreadystatechange = function(e) {lb}
+        window.location = '/';
+      {rb};
+    {rb}
+    function sendLogout() {lb}
+      const req = new XMLHttpRequest();
+      req.open('POST', '/login/logout');
+      req.send();
+      req.onreadystatechange = function(e) {lb}
+        window.location = '/login';
+      {rb};
+    {rb}
+  </script>
+{/template}

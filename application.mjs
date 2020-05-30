@@ -1,4 +1,5 @@
 import Shard from './shard.mjs';
+import { Mutator, Mutable } from './mutate.mjs';
 import { ApplicationState, State } from './state.mjs';
 import { IncomingMessage, OutgoingMessage } from 'http';
 
@@ -29,12 +30,14 @@ export default class Application {
    * @param {!IncomingMessage} req 
    * @param {!OutgoingMessage} res
    * @param {!State} state
+   * @param {!Mutator} mutator
    */
-  receive(req, res, state) {
+  receive(req, res, state, mutator) {
     state.app = this._state;
     for (const [path, shard] of Object.entries(this._shards)) {
       if (req.url.match(path)) {
-        shard.receive(req, res, state);
+        mutator.app = this._createMutable();
+        shard.receive(req, res, state, mutator);
         return;
       }
     }
@@ -45,5 +48,13 @@ export default class Application {
     res.statusCode = 500;
     res.setHeader('Content-Type', 'text/plain');
     res.end('No shard is present for the requested URL.\n');
+  }
+
+  /** 
+   * @protected 
+   * @returns {!Mutable}
+  */
+  _createMutable() {
+    return new Mutable();
   }
 }

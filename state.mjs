@@ -1,24 +1,40 @@
+import { Cookie } from './util.mjs';
+
 export class State {
   /**
    * @param {!ServerState} serverState
+   * @param {RequestState=} reqState
    */
-  constructor(serverState) {
+  constructor(serverState, reqState = null) {
+    /** @const {!ServerState} */
     this.server = serverState;
-    /** @private {?ApplicationState} */
+    /** @type {?RequestState} */
+    this.req = reqState;
+    /** @type {?ApplicationState} */
     this.app = null;
-    /** @private {?UserState} */
+    /** @type {?UserState} */
     this.user = null;
   }
 }
 
-export class ServerState {
+export class ServerState { }
 
+export class RequestState {
+  constructor({ url = null, cookie = null }) {
+    /** @type {?url} */
+    this.url = url;
+    /** @type {?Cookie} */
+    this.cookie = cookie;
+  }
 }
 
-export class ApplicationState {
-
-}
+export class ApplicationState { }
 
 export class UserState {
-
+  constructor(username, token) {
+    /** @const {string} */
+    this.username = username;
+    /** @const {string} */
+    this.token = token;
+  }
 }
