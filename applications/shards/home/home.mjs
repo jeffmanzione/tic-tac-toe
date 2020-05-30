@@ -1,8 +1,8 @@
 import soynode from 'soynode';
 
-import Shard from '../../shard.mjs';
+import Shard from '../../../shard.mjs';
 import { IncomingMessage, OutgoingMessage } from 'http';
-import { State } from '../../state.mjs';
+import { State } from '../../../state.mjs';
 
 export default class HomeShard extends Shard {
   /**

@@ -1,6 +1,8 @@
 import Application from './application.mjs';
 import { createServer } from 'http';
-import { ServerState, State } from './state.mjs';
+import { RequestState, ServerState, State } from './state.mjs';
+import { Cookie } from './util.mjs';
+import { Mutable, Mutator } from './mutate.mjs';
 
 export default class Server {
   /**
@@ -23,11 +25,23 @@ export default class Server {
     console.log(`Server starting for ${this._hostname}.`);
     for (const [port, app] of Object.entries(this._applications)) {
       createServer((req, res) => {
-        return app.receive(req, res, new State(this._state));
+        const reqState = new RequestState({
+          url: new URL(req.url, 'http://' + this._hostname),
+          cookie: new Cookie(req, res)
+        });
+        return app.receive(req, res, new State(this._state, reqState), new Mutator(this._createMutable()));
       }).listen(port, this._hostname,
         () => {
           app.describe(this._hostname, port);
         });
     }
+  }
+
+  /** 
+   * @protected 
+   * @returns {!Mutable}
+  */
+  _createMutable() {
+    return new Mutable();
   }
 }
