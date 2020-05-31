@@ -1,0 +1,5 @@
+@use 'main';
+
+h1 {
+  font-family: main.$h1-font-family;
+}

@@ -1,6 +1,9 @@
+import path from 'path';
+import sass from 'sass';
 import soynode from 'soynode';
+import { OutgoingMessage } from 'http';
 
-/** Basic soy setup for this project. */
+/** Basic soy setup for this. */
 export function initSoy() {
   soynode.setOptions({
     outputDir: '/tmp/soynode/tictactoe',
@@ -81,3 +84,43 @@ export class Cookie {
   }
 }
 
+/**
+ * @param {string} pathToScssFile
+ * @returns {!Promise<string>} Promise that resolves the script element for the styles. 
+ */
+export function renderSassStyles(pathToScssFile) {
+  return new Promise(function (resolve, _) {
+    const compiledSass = sass.renderSync({ file: path.resolve() + pathToScssFile });
+    resolve(`<style>${compiledSass.css}</style>`);
+  });
+}
+
+/**
+ * @param {string} templateName
+ * @param {Object<string, !Object>=} input 
+ * @returns {!Promise<string>} Promise that resolves to the page HTML.
+ */
+export function renderSoyTemplate(templateName, input) {
+  return new Promise(function (resolve, _) {
+    resolve(soynode.render(templateName, input = {}));
+  });
+}
+
+/**
+ * @param {!OutgoingMessage} res
+ * @param {string} soyTemplateName
+ * @param {Object<string, !Object>=} soyTemplateInput 
+ * @param {string=} pathToScssFile
+ * @returns {!Promise<string>} Promise that resolves to the page HTML.
+ */
+export async function renderPage({ res, soyTemplateName, pathToScssFile = null, soyTemplateInput = {} }) {
+  return Promise.all([
+    pathToScssFile == null ? Promise.resolve(null) : renderSassStyles(pathToScssFile),
+    renderSoyTemplate(soyTemplateName, soyTemplateInput)
+  ]).then(([css, html]) => {
+    if (css != null) {
+      res.write(css);
+    }
+    res.write(html);
+  });
+}

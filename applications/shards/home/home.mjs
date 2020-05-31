@@ -3,6 +3,7 @@ import soynode from 'soynode';
 import Shard from '../../../shard.mjs';
 import { IncomingMessage, OutgoingMessage } from 'http';
 import { State } from '../../../state.mjs';
+import { renderPage } from '../../../util.mjs';
 
 export default class HomeShard extends Shard {
   /**
@@ -11,9 +12,9 @@ export default class HomeShard extends Shard {
    * @param {!State} state 
    * @override
    */
-  receive(req, res, state) {
+  async receive(req, res, state) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
-    res.end(soynode.render('tictactoe.home'));
+    await renderPage({ res: res, soyTemplateName: 'tictactoe.home' }).then((_) => { res.end() });
   }
 }
