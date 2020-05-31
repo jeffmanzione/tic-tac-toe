@@ -18,8 +18,8 @@ export class LoginShard extends Shard {
    * @param {!Mutator} mutator 
    * @override
    */
-  async receive(req, res, state, mutator) {
-    if (req.method == 'POST' && state.req.url.pathname == '/login/logout') {
+  receive(req, res, state, mutator) {
+    if (req.method == 'POST' && state.req.url.pathname == '/logout') {
       this._logOut(res, state, mutator);
       return;
     }
@@ -30,14 +30,13 @@ export class LoginShard extends Shard {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
 
-    await renderPage({
+    renderPage({
       res: res,
       soyTemplateName: 'tictactoe.login',
       soyTemplateInput: { username: state.user != null ? state.user.username : null },
       pathToScssFile: '/applications/shards/login/login.scss',
-    }).then((_) => {
-      res.end();
     });
+    res.end();
   }
 
   _logIn(res, state, mutator) {

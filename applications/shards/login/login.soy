@@ -29,7 +29,7 @@
     {rb}
     function sendLogout() {lb}
       const req = new XMLHttpRequest();
-      req.open('POST', '/login/logout');
+      req.open('POST', '/logout');
       req.send();
       req.onreadystatechange = function(e) {lb}
         window.location = '/login';

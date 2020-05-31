@@ -86,24 +86,20 @@ export class Cookie {
 
 /**
  * @param {string} pathToScssFile
- * @returns {!Promise<string>} Promise that resolves the script element for the styles. 
+ * @returns {string} The script element for the styles. 
  */
 export function renderSassStyles(pathToScssFile) {
-  return new Promise(function (resolve, _) {
-    const compiledSass = sass.renderSync({ file: path.resolve() + pathToScssFile });
-    resolve(`<style>${compiledSass.css}</style>`);
-  });
+  const compiledSass = sass.renderSync({ file: path.resolve() + pathToScssFile });
+  return `<style>${compiledSass.css}</style>`;
 }
 
 /**
  * @param {string} templateName
  * @param {Object<string, !Object>=} input 
- * @returns {!Promise<string>} Promise that resolves to the page HTML.
+ * @returns {string} The page HTML.
  */
 export function renderSoyTemplate(templateName, input) {
-  return new Promise(function (resolve, _) {
-    resolve(soynode.render(templateName, input = {}));
-  });
+  return soynode.render(templateName, input);
 }
 
 /**
@@ -111,16 +107,10 @@ export function renderSoyTemplate(templateName, input) {
  * @param {string} soyTemplateName
  * @param {Object<string, !Object>=} soyTemplateInput 
  * @param {string=} pathToScssFile
- * @returns {!Promise<string>} Promise that resolves to the page HTML.
  */
-export async function renderPage({ res, soyTemplateName, pathToScssFile = null, soyTemplateInput = {} }) {
-  return Promise.all([
-    pathToScssFile == null ? Promise.resolve(null) : renderSassStyles(pathToScssFile),
-    renderSoyTemplate(soyTemplateName, soyTemplateInput)
-  ]).then(([css, html]) => {
-    if (css != null) {
-      res.write(css);
-    }
-    res.write(html);
-  });
+export function renderPage({ res, soyTemplateName, pathToScssFile = null, soyTemplateInput = {} }) {
+  if (pathToScssFile != null) {
+    res.write(renderSassStyles(pathToScssFile));
+  }
+  res.write(renderSoyTemplate(soyTemplateName, soyTemplateInput));
 }

@@ -12,9 +12,10 @@ export default class HomeShard extends Shard {
    * @param {!State} state 
    * @override
    */
-  async receive(req, res, state) {
+  receive(req, res, state) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
-    await renderPage({ res: res, soyTemplateName: 'tictactoe.home' }).then((_) => { res.end() });
+    renderPage({ res: res, soyTemplateName: 'tictactoe.home' });
+    res.end();
   }
 }

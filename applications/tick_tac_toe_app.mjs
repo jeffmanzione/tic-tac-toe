@@ -9,7 +9,7 @@ export default class TicTacToeApp extends Application {
       'tic-tac-toe',
       {
         '^/$': new HomeShard(),
-        '^/login(/.*)?': new LoginShard(),
+        '^/log(in|out)(/.*)?': new LoginShard(),
       });
     this._userStates = {};
   }
