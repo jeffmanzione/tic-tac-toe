@@ -1,23 +1,42 @@
 {namespace tictactoe}{template .game}
-<link rel="stylesheet" type="text/css" href="./gamestyle.css" media="all">
+{@param username: string | null}
+<div>
+    <a href="/login">
+        <button onclick="sendLogout()">Logout</button>
+    </a>
+    <h4>{$username}</h4>
+</div>
+<div>
     <h1 class="test">Tic Tac Toe</h1>
+</div>
+</div>
     <div>
         <table>
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
+                <td class="bottomright">1</td>
+                <td class="bottomright">2</td>
+                <td class="bottom">3</td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
+                <td class="bottomright">1</td>
+                <td class="bottomright">2</td>
+                <td class="bottom">3</td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>2</td>
+                <td class="right">1</td>
+                <td class="right">2</td>
                 <td>3</td>
             </tr>
         </table>
     </div>
+// <script type="text/javascript">
+//     function sendLogout() {lb}
+//       const req = new XMLHttpRequest();
+//       req.open('POST', '/logout');
+//       req.send();
+//       req.onreadystatechange = function(e) {lb}
+//         window.location = '/login';
+//       {rb};
+//     {rb}
+// </script>
 {/template}
