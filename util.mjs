@@ -1,6 +1,9 @@
+import path from 'path';
+import sass from 'sass';
 import soynode from 'soynode';
+import { OutgoingMessage } from 'http';
 
-/** Basic soy setup for this project. */
+/** Basic soy setup for this. */
 export function initSoy() {
   soynode.setOptions({
     outputDir: '/tmp/soynode/tictactoe',
@@ -81,3 +84,33 @@ export class Cookie {
   }
 }
 
+/**
+ * @param {string} pathToScssFile
+ * @returns {string} The script element for the styles. 
+ */
+export function renderSassStyles(pathToScssFile) {
+  const compiledSass = sass.renderSync({ file: path.resolve() + pathToScssFile });
+  return `<style>${compiledSass.css}</style>`;
+}
+
+/**
+ * @param {string} templateName
+ * @param {Object<string, !Object>=} input 
+ * @returns {string} The page HTML.
+ */
+export function renderSoyTemplate(templateName, input) {
+  return soynode.render(templateName, input);
+}
+
+/**
+ * @param {!OutgoingMessage} res
+ * @param {string} soyTemplateName
+ * @param {Object<string, !Object>=} soyTemplateInput 
+ * @param {string=} pathToScssFile
+ */
+export function renderPage({ res, soyTemplateName, pathToScssFile = null, soyTemplateInput = {} }) {
+  if (pathToScssFile != null) {
+    res.write(renderSassStyles(pathToScssFile));
+  }
+  res.write(renderSoyTemplate(soyTemplateName, soyTemplateInput));
+}

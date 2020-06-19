@@ -4,9 +4,8 @@ import Shard from '../../../shard.mjs';
 import { IncomingMessage, OutgoingMessage } from 'http';
 import { Mutator } from '../../../mutate.mjs';
 import { State } from '../../../state.mjs';
-import { createToken } from '../../../util.mjs';
+import { createToken, renderPage } from '../../../util.mjs';
 import { UserState } from '../../../state.mjs';
-import { runInNewContext } from 'vm';
 
 const USERNAME_QUERY_PARAM_KEY = 'username';
 export const USER_COOKIE_KEY = 'tic-tac-toe-user';
@@ -20,7 +19,7 @@ export class LoginShard extends Shard {
    * @override
    */
   receive(req, res, state, mutator) {
-    if (req.method == 'POST' && state.req.url.pathname == '/login/logout') {
+    if (req.method == 'POST' && state.req.url.pathname == '/logout') {
       this._logOut(res, state, mutator);
       return;
     }
@@ -30,7 +29,14 @@ export class LoginShard extends Shard {
     }
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
-    res.end(soynode.render('tictactoe.login', { username: state.user != null ? state.user.username : null }));
+
+    renderPage({
+      res: res,
+      soyTemplateName: 'tictactoe.login',
+      soyTemplateInput: { username: state.user != null ? state.user.username : null },
+      pathToScssFile: '/applications/shards/login/login.scss',
+    });
+    res.end();
   }
 
   _logIn(res, state, mutator) {
