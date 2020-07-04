@@ -36,23 +36,29 @@
 
     <script type="text/javascript">
         var playerOne = "";
-        //var cells = document.getElementsByTagName("td"); 
+
         function setX(){lb}
             playerOne = "x";
         {rb}
+
         function setO(){lb}
             playerOne = "o";
         {rb}
+
         function newGame(){lb}
+            var tbl = document.getElementById("gameboard");
+            if(tbl){lb}
+                tbl.parentNode.removeChild(tbl);
+            {rb}
             var body = document.getElementById("tableplace");
             var tbl = document.createElement("table");
+            tbl.setAttribute("id","gameboard");
             var tbody = document.createElement("tbody");
             for(var i = 0; i < 3; i++){lb}
                 var tr = document.createElement("tr");
                 for(var j = 0; j < 3; j++){lb}
                     var td = document.createElement("td");
                     tr.appendChild(td);
-                    //td[j].addEventListener("click", drawXO());
                 {rb}
                 cells = document.getElementsByTagName("td");
                 tbody.appendChild(tr);
