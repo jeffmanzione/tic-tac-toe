@@ -13,6 +13,7 @@ button {
 table {
     margin: auto;
     height: 30em;
+    font-size: large;
 }
 
 tr {
@@ -20,11 +21,9 @@ tr {
 }
 
 .line1 {
-    background-color: green;
-    /*   width: 50%;
-    height: 50%;
-    transform: rotate(45deg);
-    color: black; */
+    text-align: center;
+    vertical-align: middle;
+    color: black;
 }
 
 td {

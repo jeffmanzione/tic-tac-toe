@@ -31,20 +31,20 @@
     </div>
 
     <script type="text/javascript">
-       /*  for (var i = 0; i < cells.length; i++) {lb}
-            cells[i].onclick = function(e){lb}
-                e.innerHTML += '<div class="line1"></div>'
-                //e.classList.add("line1");
-            {rb};
-        {rb} */
+        const playerOne = "X"
+        
         var board = document.getElementById("gameBoard");
         var cells = board.getElementsByTagName("td"); 
-        function createX() {lb}
-            //alert("it works");
-            this.innerHTML = "test"
-            //board.getElementsByTagName("td").classList.add("line1");
-            //classList.add("line1");
-        {rb};
+         for (var i = 0; i < cells.length; i++) {lb}
+            cells[i].onclick = function(){lb}
+                this.innerHTML = "X";
+            {rb}
+        {rb}
+        function drawXO(){lb}
+            if(playerOne){lb}
+                this.innerHTML = "X";
+            {rb}
+        {rb}
     </script>
 // <script type="text/javascript">
 //     function sendLogout() {lb}
