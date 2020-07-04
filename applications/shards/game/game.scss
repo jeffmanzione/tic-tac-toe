@@ -11,30 +11,43 @@ button {
 }
 
 table {
-    width: 80%;
     margin: auto;
-    height: 60%;
+    height: 30em;
 }
 
 tr {
-    width: 100%;
     height: 30%;
+}
+
+.line1 {
+    background-color: green;
+    /*   width: 50%;
+    height: 50%;
+    transform: rotate(45deg);
+    color: black; */
 }
 
 td {
-    width: 30%;
-    height: 30%;
+    border: black solid 2px;
+    width: 10em;
+    height: 100%;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.bottomright {
-    border-bottom: black solid 2px;
-    border-right: black solid 2px;
+table tr:first-child td {
+    border-top: none;
 }
 
-.bottom {
-    border-bottom: black solid 2px;
+table tr:last-child td {
+    border-bottom: none;
 }
 
-.right {
-    border-right: black solid 2px;
+table tr td:first-child {
+    border-left: none;
+}
+
+table tr td:last-child {
+    border-right: none;
 }

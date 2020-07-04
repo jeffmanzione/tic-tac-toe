@@ -11,24 +11,41 @@
 </div>
 </div>
     <div>
-        <table>
+        <table id="gameBoard">
             <tr>
-                <td class="bottomright">1</td>
-                <td class="bottomright">2</td>
-                <td class="bottom">3</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
             </tr>
             <tr>
-                <td class="bottomright">1</td>
-                <td class="bottomright">2</td>
-                <td class="bottom">3</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
             </tr>
             <tr>
-                <td class="right">1</td>
-                <td class="right">2</td>
+                <td>1</td>
+                <td>2</td>
                 <td>3</td>
             </tr>
         </table>
     </div>
+
+    <script type="text/javascript">
+       /*  for (var i = 0; i < cells.length; i++) {lb}
+            cells[i].onclick = function(e){lb}
+                e.innerHTML += '<div class="line1"></div>'
+                //e.classList.add("line1");
+            {rb};
+        {rb} */
+        var board = document.getElementById("gameBoard");
+        var cells = board.getElementsByTagName("td"); 
+        function createX() {lb}
+            //alert("it works");
+            this.innerHTML = "test"
+            //board.getElementsByTagName("td").classList.add("line1");
+            //classList.add("line1");
+        {rb};
+    </script>
 // <script type="text/javascript">
 //     function sendLogout() {lb}
 //       const req = new XMLHttpRequest();
