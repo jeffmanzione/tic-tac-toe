@@ -22,10 +22,6 @@ export default class GameShard extends Shard {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
 
-        // if (state.req.url.searchParams.get(USERNAME_QUERY_PARAM_KEY) == null) {
-        //     SendToLogin();
-        // } else {
-
         renderPage({
             res: res,
             soyTemplateName: 'tictactoe.game',
@@ -33,15 +29,5 @@ export default class GameShard extends Shard {
             pathToScssFile: '/applications/shards/game/game.scss',
         });
         res.end();
-        // }
     }
-
-    // SendToLogin() {
-    //     const req = new XMLHttpRequest();
-    //     req.open('POST', '/logout');
-    //     req.send();
-    //     req.onreadystatechange = function(e) {
-    //         window.location = '/login';
-    //     }
-    // }
 }

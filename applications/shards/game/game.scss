@@ -20,17 +20,10 @@ h4,
 table {
     margin: auto;
     height: 30em;
-    font-size: large;
 }
 
 tr {
     height: 30%;
-}
-
-.line1 {
-    text-align: center;
-    vertical-align: middle;
-    color: black;
 }
 
 td {
@@ -39,7 +32,6 @@ td {
     height: 100%;
     float: left;
     text-align: center;
-    vertical-align: middle;
 }
 
 table tr:first-child td {

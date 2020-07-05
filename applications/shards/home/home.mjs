@@ -33,7 +33,6 @@ export default class HomeShard extends Shard {
             res: res,
             soyTemplateName: 'tictactoe.home',
             soyTemplateInput: { username: state.user != null ? state.user.username : null },
-            //pathToScssFile: '/applications/shards/login/login.scss',
         });
         res.end();
     }

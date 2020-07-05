@@ -15,79 +15,97 @@
 </div>
 </div>
     <div id="tableplace">
-       /*  <table id="gameBoard">
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-            </tr>
-        </table> */
     </div>
 
     <script type="text/javascript">
-        var playerOne = "";
+        let playerOne = '';
 
         function setX(){lb}
-            playerOne = "x";
+            playerOne = 'x';
         {rb}
 
         function setO(){lb}
-            playerOne = "o";
+            playerOne = 'o';
         {rb}
 
         function newGame(){lb}
-            var tbl = document.getElementById("gameboard");
-            if(tbl){lb}
-                tbl.parentNode.removeChild(tbl);
+            const old_table = document.getElementById('gameboard');
+            const board_size = 3;
+            if(old_table){lb}
+                old_table.parentNode.removeChild(old_table);
             {rb}
-            var body = document.getElementById("tableplace");
-            var tbl = document.createElement("table");
-            tbl.setAttribute("id","gameboard");
-            var tbody = document.createElement("tbody");
-            for(var i = 0; i < 3; i++){lb}
-                var tr = document.createElement("tr");
-                for(var j = 0; j < 3; j++){lb}
-                    var td = document.createElement("td");
-                    tr.appendChild(td);
+            const board = document.getElementById('tableplace');
+            const table = document.createElement('table');
+            table.setAttribute('id','gameboard');
+            const tbody = document.createElement('tbody');
+            for(var i = 0; i < board_size; i++){lb}
+                const tr = document.createElement('tr');
+                for(var j = 0; j < board_size; j++){lb}
+                    tr.appendChild(document.createElement('td'));
                 {rb}
-                cells = document.getElementsByTagName("td");
                 tbody.appendChild(tr);
             {rb}
-            tbl.appendChild(tbody);
-            body.appendChild(tbl);
-            var cells = document.getElementsByTagName("td"); 
+            table.appendChild(tbody);
+            board.appendChild(table);
+            const cells = document.getElementsByTagName('td'); 
             for (var i = 0; i < cells.length; i++) {lb}
-                cells[i].addEventListener("click", drawXO);
+                cells[i].addEventListener('click', drawXO);
             {rb}
         {rb}
 
+        function checkForWinner(){lb}
+            let row1cell1 = document.getElementById('gameboard').rows[0].cells[0].innerHTML;
+            let row1cell2 = document.getElementById('gameboard').rows[0].cells[1].innerHTML;
+            let row1cell3 = document.getElementById('gameboard').rows[0].cells[2].innerHTML;
+            let row2cell1 = document.getElementById('gameboard').rows[1].cells[0].innerHTML;
+            let row2cell2 = document.getElementById('gameboard').rows[1].cells[1].innerHTML;
+            let row2cell3 = document.getElementById('gameboard').rows[1].cells[2].innerHTML;
+            let row3cell1 = document.getElementById('gameboard').rows[2].cells[0].innerHTML;
+            let row3cell2 = document.getElementById('gameboard').rows[2].cells[1].innerHTML;
+            let row3cell3 = document.getElementById('gameboard').rows[2].cells[2].innerHTML;
+            if(row1cell1 == row1cell2  && row1cell1 == row1cell3 && row1cell1 != ''){lb}
+                winner = row1cell1;
+                alert(winner + ' is the winner!');
+            {rb}
+            else if(row2cell1 == row2cell2 && row2cell2 == row2cell3 && row2cell1 != ''){lb}
+                winner = row2cell1;
+                alert(winner + ' is the winner!');
+            {rb}
+            else if(row3cell1 == row3cell2 && row3cell1 == row3cell3 && row3cell1 != ''){lb}
+                winner = row3cell1;
+                alert(winner + ' is the winner!');
+            {rb}
+            else if(row1cell1 == row2cell1 && row1cell1 == row3cell1 && row1cell1 != ''){lb}
+                winner = row1cell1;
+                alert(winner + ' is the winner!');
+            {rb}
+            else if(row1cell2 == row2cell2 && row1cell2 == row3cell2 && row1cell2 != ''){lb}
+                winner = row1cell2;
+                alert(winner + ' is the winner!');
+            {rb}
+            else if(row1cell3 == row2cell3 && row1cell3 == row3cell3 && row1cell3 != ''){lb}
+                winner = row1cell3;
+                alert(winner + ' is the winner!');
+            {rb}
+            else if(row1cell1 == row2cell2 && row1cell1 == row3cell3 && row1cell1 != ''){lb}
+                winner = row1cell1;
+                alert(winner + ' is the winner!');
+            {rb}
+            else if(row1cell3 == row2cell2 && row1cell3 == row3cell1 && row1cell3 != ''){lb}
+                winner = row1cell3;
+                alert(winner + ' is the winner!');
+            {rb}
+
+        {rb}
+
         function drawXO(){lb}
-            if(playerOne == "x"){lb}
-                this.innerHTML = "X";
+            if(playerOne == 'x'){lb}
+                this.innerHTML = 'X';
             {rb}
-            else if(playerOne == "o"){lb}
-                this.innerHTML = "O";
+            else if(playerOne == 'o'){lb}
+                this.innerHTML = 'O';
             {rb}
+            checkForWinner();
         {rb}
     </script>
-// <script type="text/javascript">
-//     function sendLogout() {lb}
-//       const req = new XMLHttpRequest();
-//       req.open('POST', '/logout');
-//       req.send();
-//       req.onreadystatechange = function(e) {lb}
-//         window.location = '/login';
-//       {rb};
-//     {rb}
-// </script>
 {/template}

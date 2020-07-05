@@ -22,7 +22,7 @@ export default class TicTacToeApp extends Application {
          * 
          * @override
          */
-    receive(req, res, state, mutator) {
+    recive(req, res, state, mutator) {
         state.user = this._getUserState(state.req.cookie);
         super.receive(req, res, state, mutator);
     }
