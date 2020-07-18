@@ -1,0 +1,51 @@
+@use 'main';
+.header {
+    font-family: main.$h1-font-family;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h4,
+.logbutton {
+    float: right;
+    margin: 5px;
+}
+
+#x,
+#o {
+    margin-left: 5px;
+    padding: 5px 10px;
+}
+
+table {
+    margin: auto;
+    height: 30em;
+}
+
+tr {
+    height: 30%;
+}
+
+td {
+    border: black solid 2px;
+    width: 10em;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+
+table tr:first-child td {
+    border-top: none;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+table tr td:first-child {
+    border-left: none;
+}
+
+table tr td:last-child {
+    border-right: none;
+}

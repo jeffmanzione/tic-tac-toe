@@ -1,5 +1,14 @@
 {namespace tictactoe}{template .home}
+  {@param username: string | null}
   <h1>TicTacToe Home</h1>
   <div>Something something about the webapp.</div>
-  <a href='/login'>Login</a>
+    {if isNull($username)}
+      <a href='/login'>
+        <button>Login</button>
+      </a>
+    {else}
+      <a href='/game'>
+        <button>Play</button>
+      </a>
+    {/if}
 {/template}

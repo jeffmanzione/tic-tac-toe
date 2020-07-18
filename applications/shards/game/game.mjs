@@ -2,6 +2,7 @@ import soynode from 'soynode';
 
 import Shard from '../../../shard.mjs';
 import { IncomingMessage, OutgoingMessage } from 'http';
+import { Mutator } from '../../../mutate.mjs';
 import { State } from '../../../state.mjs';
 import { createToken, renderPage } from '../../../util.mjs';
 import { UserState } from '../../../state.mjs';
@@ -9,7 +10,7 @@ import { UserState } from '../../../state.mjs';
 const USERNAME_QUERY_PARAM_KEY = 'username';
 export const USER_COOKIE_KEY = 'tic-tac-toe-user';
 
-export default class HomeShard extends Shard {
+export default class GameShard extends Shard {
     /**
      * @param {!IncomingMessage} req 
      * @param {!OutgoingMessage} res 
@@ -18,21 +19,14 @@ export default class HomeShard extends Shard {
      * @override
      */
     receive(req, res, state) {
-        if (req.method == 'POST' && state.req.url.pathname == '/logout') {
-            this._logOut(res, state, mutator);
-            return;
-        }
-        if (req.method === 'POST' && state.req.url.searchParams.get(USERNAME_QUERY_PARAM_KEY) != null) {
-            this._logIn(res, state, mutator);
-            return;
-        }
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html');
 
         renderPage({
             res: res,
-            soyTemplateName: 'tictactoe.home',
+            soyTemplateName: 'tictactoe.game',
             soyTemplateInput: { username: state.user != null ? state.user.username : null },
+            pathToScssFile: '/applications/shards/game/game.scss',
         });
         res.end();
     }

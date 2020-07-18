@@ -12,19 +12,30 @@
         {/if}
       </td>
     </tr>
-  </table>
-  {if isNull($username)}
-    <button onclick="sendLogin()">Login</button>
-  {else}
-    <button onclick="sendLogout()">Logout</button>
-  {/if}
+    <tr>
+        {if isNull($username)}
+          <td>
+            <button onclick="sendLogin()">Login</button>
+          </td>
+        {else}
+          <td>
+            <button onclick="sendLogout()">Logout</button>
+          </td>
+          <td>
+            <a href="/game">
+              <button>Play</button>
+            </a>
+          </td>
+        {/if}
+      </tr>
+    </table>
   <script type="text/javascript">
     function sendLogin() {lb}
       const req = new XMLHttpRequest();
       req.open('POST', '/login?username=' + document.getElementById('username').value);
       req.send();
       req.onreadystatechange = function(e) {lb}
-        window.location = '/';
+        window.location = '/game';
       {rb};
     {rb}
     function sendLogout() {lb}
