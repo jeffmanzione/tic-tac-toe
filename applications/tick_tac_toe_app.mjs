@@ -1,16 +1,16 @@
-import Application from "../application.mjs";
-import HomeShard from "./shards/home/home.mjs";
-import { LoginShard, USER_COOKIE_KEY } from "./shards/login/login.mjs";
-import GameShard from "./shards/game/game.mjs";
-import { Mutable } from "../mutate.mjs";
-import { GameState } from "../state.mjs";
+import Application from '../application.mjs';
+import HomeShard from './shards/home/home.mjs';
+import { LoginShard, USER_COOKIE_KEY } from './shards/login/login.mjs';
+import GameShard from './shards/game/game.mjs';
+import { Mutable } from '../mutate.mjs';
+import { GameState } from '../state.mjs';
 
 export default class TicTacToeApp extends Application {
   constructor() {
-    super("tic-tac-toe", {
-      "^/$": new HomeShard(),
-      "^/log(in|out)(/.*)?": new LoginShard(),
-      "^/game": new GameShard(),
+    super('tic-tac-toe', {
+      '^/$': new HomeShard(),
+      '^/log(in|out)(/.*)?': new LoginShard(),
+      '^/game': new GameShard(),
     });
     this._userStates = {};
   }
@@ -70,7 +70,9 @@ export default class TicTacToeApp extends Application {
         continue;
       }
       userState.inGame = true;
+      userState.gameSse.publish({ messageType: 'matchFound' });
       user.inGame = true;
+      user.gameSse.publish({ messageType: 'matchFound' });
       // TODO: Alert user that is waiting and start their game.
       return new GameState(userState, user);
     }

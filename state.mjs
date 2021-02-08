@@ -36,7 +36,10 @@ export class UserState {
     this.username = username;
     /** @const {string} */
     this.token = token;
+    /** @type {bool} */
     this.inGame = false;
+    /** @type {?SSEManager} */
+    this.gameSse = null;
   }
 }
 

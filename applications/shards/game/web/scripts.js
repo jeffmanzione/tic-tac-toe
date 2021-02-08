@@ -1,3 +1,22 @@
+const evtSource = new EventSource('/game/sse');
+
+const WAITING_INFO_CLASS = 'waiting-info';
+
+evtSource.addEventListener(
+  'event',
+  function (evt) {
+    const data = JSON.parse(evt.data);
+    if (data.messageType == 'matchFound') {
+      const waitingInfoEl = document.getElementsByClassName(
+        WAITING_INFO_CLASS
+      )[0];
+      waitingInfoEl.classList.remove('waiting');
+      waitingInfoEl.classList.add('not-waiting');
+    }
+  },
+  false
+);
+
 let playerOne = '';
 
 function sendLogout() {
@@ -43,44 +62,74 @@ function newGame() {
 }
 
 function checkForWinner() {
-  let row1cell1 = document.getElementById('gameboard').rows[0].cells[0].innerHTML;
-  let row1cell2 = document.getElementById('gameboard').rows[0].cells[1].innerHTML;
-  let row1cell3 = document.getElementById('gameboard').rows[0].cells[2].innerHTML;
-  let row2cell1 = document.getElementById('gameboard').rows[1].cells[0].innerHTML;
-  let row2cell2 = document.getElementById('gameboard').rows[1].cells[1].innerHTML;
-  let row2cell3 = document.getElementById('gameboard').rows[1].cells[2].innerHTML;
-  let row3cell1 = document.getElementById('gameboard').rows[2].cells[0].innerHTML;
-  let row3cell2 = document.getElementById('gameboard').rows[2].cells[1].innerHTML;
-  let row3cell3 = document.getElementById('gameboard').rows[2].cells[2].innerHTML;
+  let row1cell1 = document.getElementById('gameboard').rows[0].cells[0]
+    .innerHTML;
+  let row1cell2 = document.getElementById('gameboard').rows[0].cells[1]
+    .innerHTML;
+  let row1cell3 = document.getElementById('gameboard').rows[0].cells[2]
+    .innerHTML;
+  let row2cell1 = document.getElementById('gameboard').rows[1].cells[0]
+    .innerHTML;
+  let row2cell2 = document.getElementById('gameboard').rows[1].cells[1]
+    .innerHTML;
+  let row2cell3 = document.getElementById('gameboard').rows[1].cells[2]
+    .innerHTML;
+  let row3cell1 = document.getElementById('gameboard').rows[2].cells[0]
+    .innerHTML;
+  let row3cell2 = document.getElementById('gameboard').rows[2].cells[1]
+    .innerHTML;
+  let row3cell3 = document.getElementById('gameboard').rows[2].cells[2]
+    .innerHTML;
   if (row1cell1 == row1cell2 && row1cell1 == row1cell3 && row1cell1 != '') {
     winner = row1cell1;
     alert(winner + ' is the winner!');
-  }
-  else if (row2cell1 == row2cell2 && row2cell2 == row2cell3 && row2cell1 != '') {
+  } else if (
+    row2cell1 == row2cell2 &&
+    row2cell2 == row2cell3 &&
+    row2cell1 != ''
+  ) {
     winner = row2cell1;
     alert(winner + ' is the winner!');
-  }
-  else if (row3cell1 == row3cell2 && row3cell1 == row3cell3 && row3cell1 != '') {
+  } else if (
+    row3cell1 == row3cell2 &&
+    row3cell1 == row3cell3 &&
+    row3cell1 != ''
+  ) {
     winner = row3cell1;
     alert(winner + ' is the winner!');
-  }
-  else if (row1cell1 == row2cell1 && row1cell1 == row3cell1 && row1cell1 != '') {
+  } else if (
+    row1cell1 == row2cell1 &&
+    row1cell1 == row3cell1 &&
+    row1cell1 != ''
+  ) {
     winner = row1cell1;
     alert(winner + ' is the winner!');
-  }
-  else if (row1cell2 == row2cell2 && row1cell2 == row3cell2 && row1cell2 != '') {
+  } else if (
+    row1cell2 == row2cell2 &&
+    row1cell2 == row3cell2 &&
+    row1cell2 != ''
+  ) {
     winner = row1cell2;
     alert(winner + ' is the winner!');
-  }
-  else if (row1cell3 == row2cell3 && row1cell3 == row3cell3 && row1cell3 != '') {
+  } else if (
+    row1cell3 == row2cell3 &&
+    row1cell3 == row3cell3 &&
+    row1cell3 != ''
+  ) {
     winner = row1cell3;
     alert(winner + ' is the winner!');
-  }
-  else if (row1cell1 == row2cell2 && row1cell1 == row3cell3 && row1cell1 != '') {
+  } else if (
+    row1cell1 == row2cell2 &&
+    row1cell1 == row3cell3 &&
+    row1cell1 != ''
+  ) {
     winner = row1cell1;
     alert(winner + ' is the winner!');
-  }
-  else if (row1cell3 == row2cell2 && row1cell3 == row3cell1 && row1cell3 != '') {
+  } else if (
+    row1cell3 == row2cell2 &&
+    row1cell3 == row3cell1 &&
+    row1cell3 != ''
+  ) {
     winner = row1cell3;
     alert(winner + ' is the winner!');
   }
@@ -89,10 +138,8 @@ function checkForWinner() {
 function drawXO() {
   if (playerOne == 'x') {
     this.innerHTML = 'X';
-  }
-  else if (playerOne == 'o') {
+  } else if (playerOne == 'o') {
     this.innerHTML = 'O';
   }
   checkForWinner();
 }
-

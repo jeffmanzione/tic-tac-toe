@@ -64,3 +64,32 @@ table tr td:first-child {
 table tr td:last-child {
   border-right: none;
 }
+
+.waiting-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30px;
+  width: 80px;
+  margin-top: -60px;
+  margin-left: -80px;
+  padding: 40px;
+
+  background-color: rgb(242, 242, 242);
+  font-size: 20px;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 600;
+
+  border-color: rgba(0, 0, 0, 0.1);
+  border-width: 1px 1px 2.5px 1px;
+  border-style: solid;
+  border-radius: 26px;
+}
+
+.waiting {
+  display: unset;
+}
+
+.not-waiting {
+  display: none;
+}
