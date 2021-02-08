@@ -114,3 +114,4 @@ export function renderPage({ res, soyTemplateName, pathToScssFile = null, soyTem
   }
   res.write(renderSoyTemplate(soyTemplateName, soyTemplateInput));
 }
+

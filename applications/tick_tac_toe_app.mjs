@@ -35,11 +35,37 @@ export default class TicTacToeApp extends Application {
     return this._userStates[userToken];
   }
 
+  _newUserState(newUserState) {
+    if (newUserState == null || this._userStates == null) {
+      return;
+    }
+    this._userStates[newUserState.token] = newUserState;
+  }
+
+  _clearUserState(userState) {
+    if (userState == null || this._userStates == null) {
+      return;
+    }
+    this._userStates[userState.token] = null;
+  }
+
+  _listUnmatchedUsers() {
+    let users = [];
+    for (const userToken in this._userStates) {
+      const user = this._userStates[userToken];
+      if (!user.in_game) {
+        users.push(user.username);
+      }
+    }
+    return users;
+  }
+
   /** @override */
   _createMutable() {
     return new Mutable({
-      setUserState: (newUserState) => this._userStates[newUserState.token] = newUserState,
-      clearUserState: (userState) => this._userStates[userState.token] = null
+      setUserState: (newUserState) => this._newUserState(newUserState),
+      clearUserState: (userState) => this._clearUserState(userState),
+      listUnmatchedUsers: () => this._listUnmatchedUsers(),
     });
   }
 };

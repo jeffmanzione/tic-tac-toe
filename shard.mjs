@@ -2,7 +2,9 @@ import { IncomingMessage, OutgoingMessage } from 'http';
 import { State } from './state.mjs';
 
 export default class Shard {
-  constructor() { }
+  constructor(webResources = null) {
+    this._webResources = webResources;
+  }
   /**
    * @param {!IncomingMessage} req 
    * @param {!OutgoingMessage} res 

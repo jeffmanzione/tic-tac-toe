@@ -22,6 +22,6 @@ export class Mutable {
       console.log(`Missing mutator for '${key}'.`);
       return;
     }
-    this._consumers[key](value);
+    return this._consumers[key](value);
   }
 }

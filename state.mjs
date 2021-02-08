@@ -36,5 +36,15 @@ export class UserState {
     this.username = username;
     /** @const {string} */
     this.token = token;
+    this.in_game = false;
+  }
+}
+
+export class GameState {
+  constructor(user1Token, user2Token) {
+    /** @const {string} */
+    this.user1Token = user1Token;
+    /** @const {string} */
+    this.user2Token = user2Token;
   }
 }
