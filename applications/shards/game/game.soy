@@ -1,111 +1,120 @@
 {namespace tictactoe}{template .game}
 {@param username: string | null}
-<div>
-    <a href="/login">
+{call tictactoe.shell}
+  {param content kind="html"}
+    <div class="login-info-container">
+      <div class="login-info">
+        <div class="username-text">{$username}</div>
         <button class="logbutton" onclick="sendLogout()">Logout</button>
-    </a>
-    <h4>{$username}</h4>
-</div>
-<div class="header">
-    <h1>Tic Tac Toe</h1>
-    <h3>Do you want to be "X" or "O"?</h3>
-    <button onclick="setX()" id="x">X</button>
-    <button onclick="setO()" id="o">O</button>
-    <button onclick="newGame()">New Game</button>
-</div>
-</div>
-    <div id="tableplace">
+      </div>
     </div>
+    <div class="game-container">
+      <h1>Tic Tac Toe</h1>
+      <h3>Do you want to be "X" or "O"?</h3>
+      <button onclick="setX()" id="x">X</button>
+      <button onclick="setO()" id="o">O</button>
+      <button onclick="newGame()">New Game</button>
+    </div>
+    <div id="tableplace"></div>
+  {/param}
+{/call}
+<script type="text/javascript">
+  let playerOne = '';
 
-    <script type="text/javascript">
-        let playerOne = '';
+  function sendLogout() {lb}
+    const req = new XMLHttpRequest();
+    req.open('POST', '/logout');
+    req.send();
+    req.onreadystatechange = function(e) {lb}
+      window.location = '/login';
+    {rb};
+  {rb}
 
-        function setX(){lb}
-            playerOne = 'x';
-        {rb}
+  function setX() {lb}
+    playerOne = 'x';
+  {rb}
 
-        function setO(){lb}
-            playerOne = 'o';
-        {rb}
+  function setO() {lb}
+    playerOne = 'o';
+  {rb}
 
-        function newGame(){lb}
-            const old_table = document.getElementById('gameboard');
-            const board_size = 3;
-            if(old_table){lb}
-                old_table.parentNode.removeChild(old_table);
-            {rb}
-            const board = document.getElementById('tableplace');
-            const table = document.createElement('table');
-            table.setAttribute('id','gameboard');
-            const tbody = document.createElement('tbody');
-            for(var i = 0; i < board_size; i++){lb}
-                const tr = document.createElement('tr');
-                for(var j = 0; j < board_size; j++){lb}
-                    tr.appendChild(document.createElement('td'));
-                {rb}
-                tbody.appendChild(tr);
-            {rb}
-            table.appendChild(tbody);
-            board.appendChild(table);
-            const cells = document.getElementsByTagName('td'); 
-            for (var i = 0; i < cells.length; i++) {lb}
-                cells[i].addEventListener('click', drawXO);
-            {rb}
-        {rb}
+  function newGame() {lb}
+    const old_table = document.getElementById('gameboard');
+    const board_size = 3;
+    if(old_table) {lb}
+      old_table.parentNode.removeChild(old_table);
+    {rb}
+    const board = document.getElementById('tableplace');
+    const table = document.createElement('table');
+    table.setAttribute('id', 'gameboard');
+    const tbody = document.createElement('tbody');
+    for(var i = 0; i < board_size; i++) {lb}
+      const tr = document.createElement('tr');
+      for(var j = 0; j < board_size; j++) {lb}
+        tr.appendChild(document.createElement('td'));
+      {rb}
+      tbody.appendChild(tr);
+    {rb}
+    table.appendChild(tbody);
+    board.appendChild(table);
+    const cells = document.getElementsByTagName('td'); 
+    for (var i = 0; i < cells.length; i++) {lb}
+      cells[i].addEventListener('click', drawXO);
+    {rb}
+  {rb}
 
-        function checkForWinner(){lb}
-            let row1cell1 = document.getElementById('gameboard').rows[0].cells[0].innerHTML;
-            let row1cell2 = document.getElementById('gameboard').rows[0].cells[1].innerHTML;
-            let row1cell3 = document.getElementById('gameboard').rows[0].cells[2].innerHTML;
-            let row2cell1 = document.getElementById('gameboard').rows[1].cells[0].innerHTML;
-            let row2cell2 = document.getElementById('gameboard').rows[1].cells[1].innerHTML;
-            let row2cell3 = document.getElementById('gameboard').rows[1].cells[2].innerHTML;
-            let row3cell1 = document.getElementById('gameboard').rows[2].cells[0].innerHTML;
-            let row3cell2 = document.getElementById('gameboard').rows[2].cells[1].innerHTML;
-            let row3cell3 = document.getElementById('gameboard').rows[2].cells[2].innerHTML;
-            if(row1cell1 == row1cell2  && row1cell1 == row1cell3 && row1cell1 != ''){lb}
-                winner = row1cell1;
-                alert(winner + ' is the winner!');
-            {rb}
-            else if(row2cell1 == row2cell2 && row2cell2 == row2cell3 && row2cell1 != ''){lb}
-                winner = row2cell1;
-                alert(winner + ' is the winner!');
-            {rb}
-            else if(row3cell1 == row3cell2 && row3cell1 == row3cell3 && row3cell1 != ''){lb}
-                winner = row3cell1;
-                alert(winner + ' is the winner!');
-            {rb}
-            else if(row1cell1 == row2cell1 && row1cell1 == row3cell1 && row1cell1 != ''){lb}
-                winner = row1cell1;
-                alert(winner + ' is the winner!');
-            {rb}
-            else if(row1cell2 == row2cell2 && row1cell2 == row3cell2 && row1cell2 != ''){lb}
-                winner = row1cell2;
-                alert(winner + ' is the winner!');
-            {rb}
-            else if(row1cell3 == row2cell3 && row1cell3 == row3cell3 && row1cell3 != ''){lb}
-                winner = row1cell3;
-                alert(winner + ' is the winner!');
-            {rb}
-            else if(row1cell1 == row2cell2 && row1cell1 == row3cell3 && row1cell1 != ''){lb}
-                winner = row1cell1;
-                alert(winner + ' is the winner!');
-            {rb}
-            else if(row1cell3 == row2cell2 && row1cell3 == row3cell1 && row1cell3 != ''){lb}
-                winner = row1cell3;
-                alert(winner + ' is the winner!');
-            {rb}
+  function checkForWinner() {lb}
+    let row1cell1 = document.getElementById('gameboard').rows[0].cells[0].innerHTML;
+    let row1cell2 = document.getElementById('gameboard').rows[0].cells[1].innerHTML;
+    let row1cell3 = document.getElementById('gameboard').rows[0].cells[2].innerHTML;
+    let row2cell1 = document.getElementById('gameboard').rows[1].cells[0].innerHTML;
+    let row2cell2 = document.getElementById('gameboard').rows[1].cells[1].innerHTML;
+    let row2cell3 = document.getElementById('gameboard').rows[1].cells[2].innerHTML;
+    let row3cell1 = document.getElementById('gameboard').rows[2].cells[0].innerHTML;
+    let row3cell2 = document.getElementById('gameboard').rows[2].cells[1].innerHTML;
+    let row3cell3 = document.getElementById('gameboard').rows[2].cells[2].innerHTML;
+    if(row1cell1 == row1cell2  && row1cell1 == row1cell3 && row1cell1 != '') {lb}
+      winner = row1cell1;
+      alert(winner + ' is the winner!');
+    {rb}
+    else if(row2cell1 == row2cell2 && row2cell2 == row2cell3 && row2cell1 != '') {lb}
+      winner = row2cell1;
+      alert(winner + ' is the winner!');
+    {rb}
+    else if(row3cell1 == row3cell2 && row3cell1 == row3cell3 && row3cell1 != '') {lb}
+      winner = row3cell1;
+      alert(winner + ' is the winner!');
+    {rb}
+    else if(row1cell1 == row2cell1 && row1cell1 == row3cell1 && row1cell1 != '') {lb}
+      winner = row1cell1;
+      alert(winner + ' is the winner!');
+    {rb}
+    else if(row1cell2 == row2cell2 && row1cell2 == row3cell2 && row1cell2 != '') {lb}
+      winner = row1cell2;
+      alert(winner + ' is the winner!');
+    {rb}
+    else if(row1cell3 == row2cell3 && row1cell3 == row3cell3 && row1cell3 != '') {lb}
+      winner = row1cell3;
+      alert(winner + ' is the winner!');
+    {rb}
+    else if(row1cell1 == row2cell2 && row1cell1 == row3cell3 && row1cell1 != '') {lb}
+      winner = row1cell1;
+      alert(winner + ' is the winner!');
+    {rb}
+    else if(row1cell3 == row2cell2 && row1cell3 == row3cell1 && row1cell3 != '') {lb}
+      winner = row1cell3;
+      alert(winner + ' is the winner!');
+    {rb}
+  {rb}
 
-        {rb}
-
-        function drawXO(){lb}
-            if(playerOne == 'x'){lb}
-                this.innerHTML = 'X';
-            {rb}
-            else if(playerOne == 'o'){lb}
-                this.innerHTML = 'O';
-            {rb}
-            checkForWinner();
-        {rb}
-    </script>
+  function drawXO() {lb}
+    if (playerOne == 'x') {lb}
+      this.innerHTML = 'X';
+    {rb}
+    else if (playerOne == 'o') {lb}
+      this.innerHTML = 'O';
+    {rb}
+    checkForWinner();
+  {rb}
+</script>
 {/template}

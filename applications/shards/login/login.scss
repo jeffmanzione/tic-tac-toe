@@ -1,5 +1,11 @@
 @use 'main';
 
-h1 {
-  font-family: main.$h1-font-family;
+div {
+  padding: 2px 0px 6px 0px;
+}
+
+.username-text {
+  font-family:  'Noto Sans', sans-serif;
+  font-weight: 600;
+  margin-right: 8px;
 }
