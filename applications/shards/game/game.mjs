@@ -21,7 +21,7 @@ export default class GameShard extends Shard {
    * @param {!Mutator} mutator 
    * @override
    */
-  receive(req, res, state) {
+  receive(req, res, state, mutator) {
     // For scripts.
     if (req.url.startsWith('/game/web')) {
       res.statusCode = 200;
@@ -31,6 +31,8 @@ export default class GameShard extends Shard {
       return;
     }
     // The rest.
+    console.log(mutator.app.mutate('matchUser', state.user));
+   
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
     renderPage({

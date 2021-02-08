@@ -36,7 +36,7 @@ export class UserState {
     this.username = username;
     /** @const {string} */
     this.token = token;
-    this.in_game = false;
+    this.inGame = false;
   }
 }
 

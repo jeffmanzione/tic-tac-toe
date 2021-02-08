@@ -1,25 +1,25 @@
-import Application from '../application.mjs';
-import HomeShard from './shards/home/home.mjs';
-import { LoginShard, USER_COOKIE_KEY } from './shards/login/login.mjs';
-import GameShard from './shards/game/game.mjs';
-import { Mutable } from '../mutate.mjs';
+import Application from "../application.mjs";
+import HomeShard from "./shards/home/home.mjs";
+import { LoginShard, USER_COOKIE_KEY } from "./shards/login/login.mjs";
+import GameShard from "./shards/game/game.mjs";
+import { Mutable } from "../mutate.mjs";
+import { GameState } from "../state.mjs";
 
 export default class TicTacToeApp extends Application {
   constructor() {
-    super(
-      'tic-tac-toe', {
-      '^/$': new HomeShard(),
-      '^/log(in|out)(/.*)?': new LoginShard(),
-      '^/game': new GameShard(),
+    super("tic-tac-toe", {
+      "^/$": new HomeShard(),
+      "^/log(in|out)(/.*)?": new LoginShard(),
+      "^/game": new GameShard(),
     });
     this._userStates = {};
   }
   /**
-   * @param {!IncomingMessage} req 
+   * @param {!IncomingMessage} req
    * @param {!OutgoingMessage} res
    * @param {!State} state
    * @param {!Mutator} mutator
-   * 
+   *
    * @override
    */
   receive(req, res, state, mutator) {
@@ -46,18 +46,35 @@ export default class TicTacToeApp extends Application {
     if (userState == null || this._userStates == null) {
       return;
     }
-    this._userStates[userState.token] = null;
+    delete this._userStates[userState.token];
   }
 
   _listUnmatchedUsers() {
     let users = [];
     for (const userToken in this._userStates) {
       const user = this._userStates[userToken];
-      if (!user.in_game) {
+      if (!user.inGame) {
         users.push(user.username);
       }
     }
     return users;
+  }
+
+  _matchUser(userState) {
+    if (userState == null) {
+      return null;
+    }
+    for (const userToken in this._userStates) {
+      const user = this._userStates[userToken];
+      if (user.inGame || userToken == userState.token) {
+        continue;
+      }
+      userState.inGame = true;
+      user.inGame = true;
+      // TODO: Alert user that is waiting and start their game.
+      return new GameState(userState, user);
+    }
+    return null;
   }
 
   /** @override */
@@ -66,6 +83,7 @@ export default class TicTacToeApp extends Application {
       setUserState: (newUserState) => this._newUserState(newUserState),
       clearUserState: (userState) => this._clearUserState(userState),
       listUnmatchedUsers: () => this._listUnmatchedUsers(),
+      matchUser: (userState) => this._matchUser(userState),
     });
   }
-};
+}

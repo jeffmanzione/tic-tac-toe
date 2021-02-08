@@ -57,8 +57,6 @@ export class LoginShard extends Shard {
     mutator.app.mutate('setUserState', new UserState(usernameParam, token));
     res.statusCode = 200;
     res.end();
-
-    console.log(mutator.app.mutate('listUnmatchedUsers'));
   }
 
   _logOut(res, state, mutator) {
