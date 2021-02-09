@@ -24,14 +24,13 @@ export default class GameShard extends Shard {
   receive(req, res, state, mutator) {
     // SSE.
     if (req.url == '/game/sse' && state.user != null) {
-      console.log('sse setup');
       const sse = new SSEManager();
       sse.subscribe(req, res);
       state.user.gameSse = sse;
-
-      // The rest.
-      const gameState = mutator.app.mutate('matchUser', state.user);
-      console.log(gameState);
+      // Attempt to create a new game.
+      if (state.game == null) {
+        mutator.app.mutate('matchUser', state.user);
+      }
       return;
     }
     // For scripts.
@@ -52,7 +51,7 @@ export default class GameShard extends Shard {
       soyTemplateName: 'tictactoe.game',
       soyTemplateInput: {
         username: state.user != null ? state.user.username : null,
-        isWaiting: true,
+        isWaiting: state.game == null,
       },
       pathToScssFile: '/applications/shards/game/game.scss',
     });

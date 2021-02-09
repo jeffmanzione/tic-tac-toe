@@ -15,7 +15,7 @@ export class SSEManager {
     const hbt = setInterval(() => res.write('\n'), 15000);
     const onEvent = (data) => {
       res.write('retry: 500\n');
-      res.write(`event: event\n`);
+      res.write('event: event\n');
       res.write(`data: ${JSON.stringify(data)}\n\n`);
     };
     this._emitter.on('event', onEvent);

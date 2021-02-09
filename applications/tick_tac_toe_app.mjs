@@ -13,6 +13,8 @@ export default class TicTacToeApp extends Application {
       '^/game': new GameShard(),
     });
     this._userStates = {};
+
+    this._gameStates = {};
   }
   /**
    * @param {!IncomingMessage} req
@@ -24,6 +26,7 @@ export default class TicTacToeApp extends Application {
    */
   receive(req, res, state, mutator) {
     state.user = this._getUserState(state.req.cookie);
+    state.game = state.user != null ? this._gameStates[state.user.token] : null;
     super.receive(req, res, state, mutator);
   }
 
@@ -46,6 +49,7 @@ export default class TicTacToeApp extends Application {
     if (userState == null || this._userStates == null) {
       return;
     }
+
     delete this._userStates[userState.token];
   }
 
@@ -60,6 +64,34 @@ export default class TicTacToeApp extends Application {
     return users;
   }
 
+  _endGameForUser(userState) {
+    delete this._gameStates[userState.token];
+    userState.inGame = false;
+  }
+
+  _maybeDisconnectGame(userState) {
+    if (userState == null) {
+      return;
+    }
+    const gameState = this._gameStates[userState.token];
+    console.log(gameState);
+
+    const user1 = this._userStates[gameState.user1Token];
+    const user2 = this._userStates[gameState.user2Token];
+    // End the game for the players.
+    this._endGameForUser(user1);
+    this._endGameForUser(user2);
+    // Tell partner this user disconnected.
+    const partner = userState.token == user1.token ? user2 : user1;
+    partner.gameSse.publish({ messageType: 'partnerDisconnect' });
+  }
+
+  _addUserToGame(userState, gameState) {
+    this._gameStates[userState.token] = gameState;
+    userState.inGame = true;
+    userState.gameSse.publish({ messageType: 'matchFound' });
+  }
+
   _matchUser(userState) {
     if (userState == null) {
       return null;
@@ -69,12 +101,10 @@ export default class TicTacToeApp extends Application {
       if (user.inGame || userToken == userState.token) {
         continue;
       }
-      userState.inGame = true;
-      userState.gameSse.publish({ messageType: 'matchFound' });
-      user.inGame = true;
-      user.gameSse.publish({ messageType: 'matchFound' });
-      // TODO: Alert user that is waiting and start their game.
-      return new GameState(userState, user);
+      const gameState = new GameState(userState.token, user.token);
+      this._addUserToGame(userState, gameState);
+      this._addUserToGame(user, gameState);
+      return gameState;
     }
     return null;
   }
@@ -86,6 +116,7 @@ export default class TicTacToeApp extends Application {
       clearUserState: (userState) => this._clearUserState(userState),
       listUnmatchedUsers: () => this._listUnmatchedUsers(),
       matchUser: (userState) => this._matchUser(userState),
+      disconnectUser: (userState) => this._maybeDisconnectGame(userState),
     });
   }
 }

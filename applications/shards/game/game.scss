@@ -69,10 +69,11 @@ table tr td:last-child {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 30px;
-  width: 80px;
+  height: 60px;
+  line-height: 30px;
+  width: 140px;
   margin-top: -60px;
-  margin-left: -80px;
+  margin-left: -110px;
   padding: 40px;
 
   background-color: rgb(242, 242, 242);
@@ -92,4 +93,26 @@ table tr td:last-child {
 
 .not-waiting {
   display: none;
+}
+
+.waiting:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: "...";
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 20px;
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 20px;
+  }
 }

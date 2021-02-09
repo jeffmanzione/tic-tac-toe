@@ -60,6 +60,9 @@ export class LoginShard extends Shard {
   }
 
   _logOut(res, state, mutator) {
+    // Disconnects self and partner if in the middle of a game.
+    mutator.app.mutate('disconnectUser', state.user);
+    // Removes creds in the browser.
     state.req.cookie.clearValue(USER_COOKIE_KEY);
     // Pass new user state to app.
     mutator.app.mutate('clearUserState', state.user);

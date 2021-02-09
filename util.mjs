@@ -9,11 +9,21 @@ export function initSoy() {
     outputDir: '/tmp/soynode/tictactoe',
     allowDynamicRecompile: true,
   });
+  let firstCompileReject, firstCompileResolve;
+  let promiseCompile = new Promise((res, rej) => {
+    firstCompileReject = rej;
+    firstCompileResolve = res;
+  })
   soynode.compileTemplates('./', (err) => {
-    if (err) throw err;
+    if (err) {
+      firstCompileReject(err);
+      throw err;
+    }
     console.log('Templates compiled!');
+    firstCompileResolve();
   });
-};
+  return promiseCompile;
+}
 
 /**
  * Generates a new psuedo-random token to be used as a unique session identifier.

@@ -14,6 +14,8 @@ export class State {
     this.app = null;
     /** @type {?UserState} */
     this.user = null;
+    /** @type {?GameState} */
+    this.game = null;
   }
 }
 
@@ -29,6 +31,8 @@ export class RequestState {
 }
 
 export class ApplicationState { }
+
+
 
 export class UserState {
   constructor(username, token) {

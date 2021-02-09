@@ -12,6 +12,12 @@ evtSource.addEventListener(
       )[0];
       waitingInfoEl.classList.remove('waiting');
       waitingInfoEl.classList.add('not-waiting');
+    } else if (data.messageType == 'partnerDisconnect') {
+      confirm('Partner disconnected!');
+      location.reload();
+    } else {
+      // Fallback to alert.
+      alert(evt);
     }
   },
   false
