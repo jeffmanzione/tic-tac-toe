@@ -1,24 +1,42 @@
 {namespace tictactoe}{template .game}
-    {@param username: string|null}
+    {@param? username: string}
     {@param isWaiting: bool}
+    {@param? assignedLetter: string}
+    {@param? boardData: string}
+    {@param? opponentName: string}
     {call tictactoe.shell}
       {param content kind="html"}
-       <div class="waiting-info {if $isWaiting}waiting{else}not-waiting{/if}">Looking for a match</div>
+        <div id="match-search" class="waiting-info {if $isWaiting}waiting{else}not-waiting{/if}">Looking for a match</div>
+        <div id="waiting-for-opponent" class="waiting-info not-waiting">Waiting for opponent's move</div>
         <div class="login-info-container">
           <div class="login-info">
-            <div class="username-text">{$username}</div>
+            <div id="username" class="username-text">{$username}</div>
             <button class="logbutton" onclick="sendLogout()">Logout</button>
           </div>
         </div>
-        <div class="game-container">
+        <div id="game-container"
+             class="game-container">
           <h1>Tic Tac Toe</h1>
-          <h3>Do you want to be "X" or "O"?</h3>
-          <button onclick="setX()" id="x">X</button>
-          <button onclick="setO()" id="o">O</button>
-          <button onclick="newGame()">New Game</button>
+          <h2 class="you-are">You are{sp}</h2><h2 id="assigned-letter" class="assigned-letter">{$assignedLetter}</h2>
+          <table id="board" data-board="{$boardData}" data-opponent="{$opponentName}">
+            <tr>
+              <td data-cell="0"></td>
+              <td data-cell="1"></td>
+              <td data-cell="2"></td>
+            </tr>
+            <tr>
+              <td data-cell="3"></td>
+              <td data-cell="4"></td>
+              <td data-cell="5"></td>
+            </tr>
+            <tr>
+              <td data-cell="6"></td>
+              <td data-cell="7"></td>
+              <td data-cell="8"></td>
+            </tr>
+          </table>
         </div>
-        <div id="tableplace"></div>
       {/param}
     {/call}
-  <script src="game/web/scripts.js"></script>
+  <script src="game/client/scripts.js"></script>
 {/template}

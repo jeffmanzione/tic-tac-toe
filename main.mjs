@@ -4,7 +4,7 @@ import { initSoy } from './util.mjs';
 
 initSoy().then((success, rejection) => {
   new Server({
-    hostname: 'localhost',
+    hostname: '10.0.0.14',
     applications: {
       8080: new TicTacToeApp(),
     }

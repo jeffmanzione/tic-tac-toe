@@ -32,39 +32,6 @@
   padding: 5px 10px;
 }
 
-table {
-  margin: auto;
-  height: 30em;
-}
-
-tr {
-  height: 30%;
-}
-
-td {
-  border: black solid 2px;
-  width: 10em;
-  height: 100%;
-  float: left;
-  text-align: center;
-}
-
-table tr:first-child td {
-  border-top: none;
-}
-
-table tr:last-child td {
-  border-bottom: none;
-}
-
-table tr td:first-child {
-  border-left: none;
-}
-
-table tr td:last-child {
-  border-right: none;
-}
-
 .waiting-info {
   position: absolute;
   top: 50%;
@@ -103,6 +70,46 @@ table tr td:last-child {
   animation: ellipsis steps(4, end) 900ms infinite;
   content: "...";
   width: 0px;
+}
+
+.you-are {
+  display: inline;
+}
+
+.assigned-letter {
+  display: inline;
+  font-weight: 600;
+}
+
+table {
+  margin: 30px auto 30px auto;
+  height: 450px;
+  border-spacing: 0px;
+  tr {
+    height: 30%;
+    td {
+      font-size: 150;
+      border: black solid 2px;
+      width: 150px;
+      height: 150px;
+      line-height: 150px;
+      float: left;
+      text-align: center;
+
+      &:first-child {
+        border-left: none;
+      }
+      &:last-child {
+        border-right: none;
+      }
+    }
+    &:first-child td {
+      border-top: none;
+    }
+    &:last-child td {
+      border-bottom: none;
+    }
+  }
 }
 
 @keyframes ellipsis {

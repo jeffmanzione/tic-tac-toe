@@ -1,3 +1,13 @@
 @use 'main';
 
+.online-user-scroll-box {
+  height: 100px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: auto;
+  padding: 4px;
+}
 
+.online-user {
+  display: block;
+}
