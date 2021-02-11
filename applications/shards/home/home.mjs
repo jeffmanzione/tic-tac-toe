@@ -17,22 +17,17 @@ export default class HomeShard extends Shard {
    * @param {!Mutator} mutator 
    * @override
    */
-  receive(req, res, state) {
-    if (req.method == 'POST' && state.req.url.pathname == '/logout') {
-      this._logOut(res, state, mutator);
-      return;
-    }
-    if (req.method === 'POST' && state.req.url.searchParams.get(USERNAME_QUERY_PARAM_KEY) != null) {
-      this._logIn(res, state, mutator);
-      return;
-    }
+  receive(req, res, state, mutator) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
 
     renderPage({
       res: res,
       soyTemplateName: 'tictactoe.home',
-      soyTemplateInput: { username: state.user != null ? state.user.username : null },
+      soyTemplateInput: {
+        username: state.user != null ? state.user.username : null,
+        onlineUsers: mutator.app.mutate('listLoggedInUsers'),
+      },
       pathToScssFile: '/applications/shards/home/home.scss',
     });
     res.end();

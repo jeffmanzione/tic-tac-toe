@@ -53,5 +53,27 @@ export class GameState {
     this.user1Token = user1Token;
     /** @const {string} */
     this.user2Token = user2Token;
+    /** @const {string} */
+    this.user1Letter = 'X';
+    /** @const {string} */
+    this.user2Letter = 'O';
+    /** @type {Array<string?>} */
+    this.board = [
+      null, null, null,
+      null, null, null,
+      null, null, null,
+    ];
+  }
+  /**
+   * @param {string} userToken
+   * @returns {string}
+   */
+  letterOf(userToken) {
+    if (userToken == this.user1Token) {
+      return this.user1Letter;
+    } else if (userToken == this.user2Token) {
+      return this.user2Letter;
+    }
+    return null;
   }
 }

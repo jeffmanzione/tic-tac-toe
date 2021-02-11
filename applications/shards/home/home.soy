@@ -1,5 +1,6 @@
 {namespace tictactoe}{template .home}
-  {@param username: string | null}
+  {@param? username: string}
+  {@param onlineUsers: list<string>}
   {call tictactoe.shell}
     {param content kind="html"}
       <h1>Tic-Tac-Toe Home</h1>
@@ -10,6 +11,7 @@
         <a href="https://github.com/jmanzion">github.com/jmanzion</a>
         ) Manzione.
       </p>
+      <p>
       {if isNull($username)}
         <a href='/login'>
           <button>Login</button>
@@ -19,6 +21,15 @@
           <button>Play</button>
         </a>
       {/if}
+      </p>
+      <p>
+        <h2>Online Users</h2>
+        <div class="online-user-scroll-box">
+          {foreach $user in $onlineUsers}
+            <div class="online-user">{$user}<div>
+          {/foreach}
+        </div>
+      </p>
     {/param}
   {/call}
 {/template}
