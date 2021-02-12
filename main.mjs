@@ -7,7 +7,7 @@ const args = process.argv.slice(2);
 
 const hostname = args.length > 0 ? args[0] : 'localhost';
 
-initSoy().then((success, rejection) => {
+initSoy().then(() => {
   new Server({
     hostname: hostname,
     applications: {
@@ -15,4 +15,6 @@ initSoy().then((success, rejection) => {
     }
   }).start();
 
+}).catch((error) => {
+  console.log('Failed to compile soy templates.')
 });
