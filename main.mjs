@@ -5,10 +5,11 @@ import { initSoy } from './util.mjs';
 const port = process.env.PORT || 80;
 
 initSoy().then(() => {
+  let applications = {};
+  applications[port] = new TicTacToeApp();
+
   new Server({
-    applications: {
-      port: new TicTacToeApp(),
-    }
+    applications: applications,
   }).start();
 
 }).catch((error) => {

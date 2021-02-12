@@ -11,7 +11,7 @@ export default class Server {
    *   mapping for this server.
    */
   constructor({ applications = {} }) {
-    /** @const @private */
+    /** @const @private {!Object<number, !Application} */
     this._applications = applications;
     /** @const @private */
     this._state = new ServerState();
