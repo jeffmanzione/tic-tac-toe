@@ -20,7 +20,7 @@ export default class Server {
 
   /** Starts the server. */
   start() {
-    console.log(`Server starting for ${this._hostname}.`);
+    console.log(`Server starting.`);
     for (const [port, app] of Object.entries(this._applications)) {
       createServer((req, res) => {
         const reqState = new RequestState({
