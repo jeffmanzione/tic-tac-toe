@@ -20,9 +20,9 @@ export default class Application {
    * @param {string} hostname 
    * @param {number} port 
    */
-  describe(hostname, port) {
-    console.log(`Application \'${this.name}\' at ${hostname}:${port}:`);
-    for (const [path, shard] of Object.entries(this._shards)) {
+  describe(port) {
+    console.log(`Application \'${this.name}\' at :${port}:`);
+    for (const [path] of Object.entries(this._shards)) {
       console.log(`  ${path}`);
     }
   }

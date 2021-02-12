@@ -22,7 +22,9 @@ export class State {
 export class ServerState { }
 
 export class RequestState {
-  constructor({ cookie = null }) {
+  constructor({ path = null, cookie = null }) {
+    /** @type {?string} */
+    this.path = path;
     /** @type {?Cookie} */
     this.cookie = cookie;
   }

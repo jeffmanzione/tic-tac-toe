@@ -19,11 +19,11 @@ export class LoginShard extends Shard {
    * @override
    */
   receive(req, res, state, mutator) {
-    if (req.method == 'POST' && state.req.url.pathname == '/logout') {
+    if (req.method == 'POST' && state.req.path == '/logout') {
       this._logOut(res, state, mutator);
       return;
     }
-    if (req.method === 'POST' && state.req.url.searchParams.get(USERNAME_QUERY_PARAM_KEY) != null) {
+    if (req.method === 'POST' && new URL(state.req.path, 'http://foo.com').searchParams.get(USERNAME_QUERY_PARAM_KEY) != null) {
       this._logIn(res, state, mutator);
       return;
     }
@@ -40,7 +40,7 @@ export class LoginShard extends Shard {
   }
 
   _logIn(res, state, mutator) {
-    const usernameParam = state.req.url.searchParams.get(USERNAME_QUERY_PARAM_KEY);
+    const usernameParam = new URL(state.req.path, 'http://foo.com').searchParams.get(USERNAME_QUERY_PARAM_KEY);
     // User already has a login token.
     if (state.user != null) {
       // This person is tring to steal someone else's identity!

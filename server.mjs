@@ -24,12 +24,14 @@ export default class Server {
     for (const [port, app] of Object.entries(this._applications)) {
       createServer((req, res) => {
         const reqState = new RequestState({
+          path: req.url,
           cookie: new Cookie(req, res)
         });
         return app.receive(req, res, new State(this._state, reqState), new Mutator(this._createMutable()));
-      }).listen(port, () => {
-        app.describe(this._hostname, port);
-      });
+      }).listen(port,
+        () => {
+          app.describe(port);
+        });
     }
   }
 
