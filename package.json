@@ -1,0 +1,33 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "A tic-tac-toe mini-app created by the Manzione twins.",
+  "main": "main.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffreymanzione/tic-tac-toe.git"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "server",
+    "node",
+    "soynode",
+    "sass",
+    "scss"
+  ],
+  "author": "Jeffrey & Jessica Manzione",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffreymanzione/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/jeffreymanzione/tic-tac-toe#readme",
+  "dependencies": {
+    "eventemitter3": "^4.0.7",
+    "node-sass": "^5.0.0",
+    "soynode": "^2.1.0"
+  }
+}
