@@ -3,9 +3,7 @@ import Server from './server.mjs';
 import { initSoy } from './util.mjs';
 
 
-const args = process.argv.slice(2);
-
-const hostname = args.length > 0 ? args[0] : 'localhost';
+const hostname = process.env.HOSTNAME | 'localhost';
 
 initSoy().then(() => {
   new Server({
