@@ -5,10 +5,10 @@ import { OutgoingMessage } from 'http';
 
 /** Basic soy setup for this. */
 export function initSoy() {
-  soynode.setOptions({
-    outputDir: '/tmp/soynode/tictactoe',
-    allowDynamicRecompile: true,
-  });
+  // soynode.setOptions({
+  //   outputDir: '/tmp/soynode/tictactoe',
+  //   allowDynamicRecompile: true,
+  // });
   let firstCompileReject, firstCompileResolve;
   let promiseCompile = new Promise((res, rej) => {
     firstCompileReject = rej;
