@@ -8,7 +8,7 @@ initSoy().then(() => {
   new Server({
     hostname: hostname,
     applications: {
-      8080: new TicTacToeApp(),
+      80: new TicTacToeApp(),
     }
   }).start();
 
