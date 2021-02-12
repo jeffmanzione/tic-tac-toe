@@ -10,9 +10,7 @@ export default class Server {
    * @param {Object<number,Application>=} applications The port/application
    *   mapping for this server.
    */
-  constructor({ hostname = 'localhost', applications = {} }) {
-    /** @const @private */
-    this._hostname = hostname;
+  constructor({ applications = {} }) {
     /** @const @private */
     this._applications = applications;
     /** @const @private */
@@ -26,14 +24,12 @@ export default class Server {
     for (const [port, app] of Object.entries(this._applications)) {
       createServer((req, res) => {
         const reqState = new RequestState({
-          url: new URL(req.url, 'http://' + this._hostname),
           cookie: new Cookie(req, res)
         });
         return app.receive(req, res, new State(this._state, reqState), new Mutator(this._createMutable()));
-      }).listen(port, this._hostname,
-        () => {
-          app.describe(this._hostname, port);
-        });
+      }).listen(port, () => {
+        app.describe(this._hostname, port);
+      });
     }
   }
 
